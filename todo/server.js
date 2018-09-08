@@ -11,6 +11,7 @@
  */
 
 import express from 'express';
+import cors from 'cors';
 import graphQLHTTP from 'express-graphql';
 import path from 'path';
 import webpack from 'webpack';
@@ -52,8 +53,9 @@ const app = new WebpackDevServer(compiler, {
 app.use('/', express.static(path.resolve(__dirname, 'public')));
 
 // Setup GraphQL endpoint
-app.use('/graphql', graphQLHTTP({
+app.use('/graphql', cors(), graphQLHTTP({
   schema: schema,
+  graphiql: true,
   pretty: true,
 }));
 
